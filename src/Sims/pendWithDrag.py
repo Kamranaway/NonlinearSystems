@@ -5,11 +5,12 @@ import matplotlib.animation as animation
 from matplotlib import style
 style.use('dark_background')
 
+#pendWithDrag.py simulates a simple pendulum with drag-like behavior.
+
 TIMESTEP = .01
 
 last_x = 1
 last_y = 1
-
 
 x = [] #pregen
 y = [] #pregen
