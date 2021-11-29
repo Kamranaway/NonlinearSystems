@@ -5,6 +5,8 @@ import matplotlib.animation as animation
 from matplotlib import style
 style.use('dark_background')
 
+#simplePend.py simulates a simple pendulum.
+
 TIMESTEP = .01
 
 last_x = 1

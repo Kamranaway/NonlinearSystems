@@ -12,9 +12,13 @@ style.use('dark_background')
 TIMESTEP = .01
 GCONSTANT = 6.67408e-11
 
-num_bodies = 30
+num_bodies = 10
 bodies = []
 body_tracks = []
+cm_track_x = []
+cm_track_y = []
+cm_track_z = []
+
 for i in range(0, num_bodies):
     bodies.append(Physicsbody(rand.uniform(-1, 1) * 10 , rand.uniform(-1, 1) * 10 , rand.uniform(-1, 1) * 10 ))
     bodies[i].color = 'r'
@@ -53,7 +57,18 @@ def init():
     pass
 
 def run_processes():
+    global cm_track_x
+    global cm_track_y
+    global cm_track_z
+
+    cm_x = 0
+    cm_y = 0
+    cm_z = 0
     for body in Physicsbody.bodies:
+        cm_x += body.pos_vector.x
+        cm_y += body.pos_vector.y
+        cm_z += body.pos_vector.z
+
         body.accel_vector.zero()
         for other_body in Physicsbody.bodies:
             if other_body != body:
@@ -64,10 +79,9 @@ def run_processes():
 
                 magnitude_r = math.sqrt((delta_x*delta_x + delta_y*delta_y + delta_z*delta_z))
 
-
-                #Hacky solution. Consider alternate solution.
-                if magnitude_r < 0.25: break
-              
+                #Hacky solution.
+                if magnitude_r < 0.25:
+                    break
 
                 r = Vector(x=delta_x, y=delta_y, z=delta_z)
                 r_hat = Vector(x=(r.x/magnitude_r), y=(r.y/magnitude_r), z=(r.z/magnitude_r))
@@ -76,11 +90,23 @@ def run_processes():
                 ay = ((GCONSTANT * (1.9891))/pow(magnitude_r, 2)) * r_hat.y
                 az = ((GCONSTANT * (1.9891))/pow(magnitude_r, 2)) * r_hat.z
 
+                
+
                 body.accel_vector.x += ax * 1e12
                 body.accel_vector.y += ay * 1e12
                 body.accel_vector.z += az * 1e12
 
         body.physics_process(TIMESTEP)
+    cm_x /= len(Physicsbody.bodies)
+    cm_y /= len(Physicsbody.bodies)
+    cm_z /= len(Physicsbody.bodies)
+    cm_track_x.append(cm_x)
+    cm_track_y.append(cm_y)
+    cm_track_z.append(cm_z)
+
+
+
+
 
     #append tracks
     # for i in range (0, len(body_tracks)):
@@ -92,6 +118,9 @@ def run_processes():
     
 
 def animate(i):
+    global cm_track_x
+    global cm_track_y
+    global cm_track_z
     
     ax.clear()
     run_processes()
@@ -107,6 +136,7 @@ def animate(i):
 
     for body in Physicsbody.bodies:
         ax.plot(body.pos_vector.x, body.pos_vector.y, body.pos_vector.z, markerfacecolor=body.color, markeredgecolor=body.color, marker='.', markersize=10, alpha=0.6)
+        ax.plot(cm_track_x, cm_track_y, cm_track_z, color = 'yellow')
 
 
 main()

@@ -5,6 +5,8 @@ import matplotlib.animation as animation
 from matplotlib import style
 style.use('dark_background')
 
+#simplePendNoPhase.py simulates a simple pendulum without a phase portrait.
+
 TIMESTEP = .01
 
 last_x = 1

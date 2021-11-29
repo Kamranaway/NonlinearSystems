@@ -6,6 +6,7 @@ from matplotlib import style
 from numpy.lib.function_base import append
 style.use('dark_background')
 
+#doublePend.py is a graph of a double pendulum system.
 #Equations for double pendulum taken from https://www.myphysicslab.com/pendulum/double-pendulum-en.html
 
 TIMESTEP = .01
@@ -51,8 +52,6 @@ def animate(i):
     current_t1.append(theta_twos[i])
     current_t2.append(theta_ones[i])
     ax.plot(current_t1, current_t2, color='white')
-    
-
     
         
 def gen_states():

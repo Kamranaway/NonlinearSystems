@@ -5,22 +5,28 @@ from matplotlib import style
 import random as rand
 style.use('dark_background')
 
-sigma = rand.random() * rand.randrange(0, 100)
-r = rand.random() * rand.randrange(0, 100)
+#Lorenz.py pseudorandomly generates a lorenz systems.
+
+#Parameters are pseudo random
+sigma = rand.random() * rand.randrange(0, 100) #Prandtl number
+r = rand.random() * rand.randrange(0, 100) #Rayleigh's number
 b = rand.random() * rand.randrange(0, 100) + 0.1
-print(sigma, r, b)
 
-last_x = 1
+#Setup initial conditions
+last_x = 0
 last_y = 1
-last_z = 1
+last_z = 0
 
-x = []
-y = []
-z = []
+x = [] #All x coordinates
+y = [] #ALl y coordinates
+z = [] #ALl z coordinates
 
 fig = plt.figure()
 
 ax = plt.axes(projection='3d')
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_zlabel('z')
 
 
 def main():
@@ -34,30 +40,8 @@ def main():
     global y
     global z
 
-
-    n = 1 #The number of attractors to generate
-    colors = pl.cm.jet(np.linspace(0,1,n))
-
-    
-
-    for i in range(0, n):
-        sigma = 27.390669540590586 
-
-        r = 16.024814219194866 
-
-        b = 1.7540526438099215
-
-        gen_lorenz()
-        last_x = 0.1
-        last_y = 0.1
-        last_z = 0.1
-        ax.plot3D(x, y, z, color=colors[i])
-        
-        x = []
-        y = []
-        z = []
-
-    
+    gen_lorenz()
+    ax.plot3D(x, y, z, color='black')
 
     plt.show()
 
@@ -80,9 +64,7 @@ def gen_lorenz():
         newz = last_z
 
         newx += (sigma*(last_y-last_x)) * 0.01
-        
         newy+= ((r*last_x)-last_y-(last_x*last_z)) * 0.01
-        
         newz+= ((last_x*last_y)-(b*last_z)) * 0.01
 
         last_x = newx

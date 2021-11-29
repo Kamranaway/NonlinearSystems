@@ -5,24 +5,30 @@ import matplotlib.animation as animation
 from matplotlib import style
 style.use('dark_background')
 
-sigma = 13.727760558061053 
-r = 46.7807512582482 
-b = 1.7246112018548438
+#lorenz2d.py graphs the Lorenz system in a 2d plane.
 
-last_x = 1
+#Setup parameters
+sigma = 10 #Prandtl number
+r = 24.74 #Rayleigh's number
+b = (8/3)
+
+#Setup initial conditions
+last_x = 0 
 last_y = 1
-last_z = 1
+last_z = 0
 
-x = []
-y = []
-z = []
+x = [] #All x coordinates
+y = [] #ALl y coordinates
+z = [] #ALl z coordinates
 
-xprime = []
-yprime = []
-zprime = []
+x_current = [] #All current x coordinates
+y_current = [] #All current y coordinates
+z_current = [] #All current z coordinates
 
 fig = plt.figure()
 ax = plt.axes()
+
+
 
 def main():
     
@@ -32,10 +38,12 @@ def main():
 
 def animate(i):
     ax.clear()
-    xprime.append(x[i])
-    yprime.append(y[i])
-    zprime.append(z[i])
-    ax.plot(xprime, yprime, color='white')
+    x_current.append(x[i])
+    y_current.append(y[i])
+    z_current.append(z[i])
+    ax.set_xlabel('x')
+    ax.set_ylabel('y')
+    ax.plot(x_current, y_current, color='white')
     ax.plot(x[i], y[i], markerfacecolor='r', markeredgecolor='r', marker='.', markersize=10, alpha=0.6)
 
 def gen_lorenz():
