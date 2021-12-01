@@ -32,7 +32,8 @@ ax = plt.axes(projection='3d')
 def main():
     
     gen_lorenz()
-    ani = animation.FuncAnimation(fig, animate, len(x), interval=10)
+    #ani = animation.FuncAnimation(fig, animate, len(x), interval=10)
+    ax.plot3D(x, y, z, color='black')
     plt.show()
 
 def animate(i):
@@ -61,28 +62,40 @@ def gen_lorenz():
         z.append(last_z)
         
         #k1
-        x1 = (sigma*(last_y-last_x))*0.01
-        y1 = ((r*last_x)-last_y-(last_x*last_z))*0.01
-        z1 = ((last_x*last_y)-(b*last_z))*0.01
+        kx1 = (sigma*(last_y-last_x))
+        ky1 = ((r*last_x)-last_y-(last_x*last_z))
+        kz1 = ((last_x*last_y)-(b*last_z))
+        
+        yx1 = last_x + kx1 * 0.01/2
+        yy1 = last_y + ky1 * 0.01/2
+        yz1 = last_z + kz1 * 0.01/2
         
         #k2
-        x2 = (sigma*(y1-x1))*(0.01/2)
-        y2 = ((r*x1)-y1-(x1*z1))*(0.01/2)
-        z2 = ((x1*y1)-(b*z1))*(0.01/2)
+        kx2 = (sigma*(yy1-yx1))
+        ky2 = ((r*yx1)-yy1-(yx1*yz1))
+        kz2 = ((yx1*yy1)-(b*yz1))
+        
+        yx2 = last_x + kx2 * 0.01/2
+        yy2 = last_y + ky2 * 0.01/2
+        yz2 = last_z + kz2 * 0.01/2
         
         #k3
-        x3 = (sigma*(y2-x2))*(0.01/2)
-        y3 = ((r*x2)-y2-(x2*z2))*(0.01/2)
-        z3 = ((x2*y2)-(b*z2))*(0.01/2)
+        kx3 = (sigma*(yy2-yx2))
+        ky3 = ((r*yx2)-yy2-(yx2*yz2))
+        kz3 = ((yx2*yy2)-(b*yz2))
+        
+        yx3 = last_x + kx3 * 0.01
+        yy3 = last_y + ky3 * 0.01
+        yz3 = last_z + kz3 * 0.01
         
         #k4
-        x4 = (sigma*(y3-x3))*(0.01)
-        y4 = ((r*x3)-y3-(x3*z3))*(0.01)
-        z4 = ((x3*y3)-(b*z3))*(0.01)
+        kx4 = (sigma*(yy3-yx3))*(0.01)
+        ky4 = ((r*yx3)-yy3-(yx3*yz3))*(0.01)
+        kz4 = ((yx3*yy3)-(b*yz3))*(0.01)
         
-        new_x = last_x + (((x1 + 2*x2 + 2*x3 + x4)/6))
-        new_y = last_y + (((y1 + 2*y2 + 2*y3 + y4)/6))
-        new_z = last_z + (((z1 + 2*z2 + 2*z3 + z4)/6))
+        new_x = last_x + (((kx1 + 2*kx2 + 2*kx3 + kx4)*0.01/6))
+        new_y = last_y + (((ky1 + 2*ky2 + 2*ky3 + ky4)*0.01/6))
+        new_z = last_z + (((kz1 + 2*kz2 + 2*kz3 + kz4)*0.01/6))
 
         last_x = new_x
         last_y = new_y
