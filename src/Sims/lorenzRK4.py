@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import mpl_toolkits.mplot3d.axes3d as p3
 import matplotlib.animation as animation
-import scipy.integrate as intg
 from matplotlib import style
 style.use('dark_background')
 
