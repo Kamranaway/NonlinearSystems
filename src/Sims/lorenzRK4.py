@@ -6,7 +6,8 @@ import scipy.integrate as intg
 from matplotlib import style
 style.use('dark_background')
 
-#aniLorenz.py is an animated graph of the Lorenz System.
+#lorenzRK4.py is the RK4 integrated solution for the Lorenz system.
+#Source for RK4 algorithm: https://lpsa.swarthmore.edu/NumInt/NumIntFourth.html
 
 #Setup parameters
 sigma = 10 #Prandtl number
