@@ -39,7 +39,15 @@ plt.autoscale(False)
 
 def main():
     init()
-    ani = animation.FuncAnimation(fig, animate, interval=10)
+    iteration = 0
+    while (True):
+        animate(iteration)
+        iteration += 1
+        if (iteration == 10000*5): break
+    ax.clear()
+    ax.plot(track_x, track_y, track_z, color = 'yellow')
+    #ax.scatter(track_x, track_y, track_z)
+    #ani = animation.FuncAnimation(fig, animate, interval=10)
     plt.show()
 
 def init():
@@ -105,34 +113,26 @@ def run_processes():
     b3vec = 0
     
     #b1vec += pow(Physicsbody.bodies[0].pos_vector.x, 2) + pow(Physicsbody.bodies[0].pos_vector.y, 2) + pow(Physicsbody.bodies[0].pos_vector.z, 2)
-    #b1vec += pow(deltaxs[0], 2) + pow(deltays[0], 2) + pow(deltazs[0], 2) + pow(deltaxs[1], 2) + pow(deltays[1], 2) + pow(deltazs[1], 2)
-    #b1vec += pow(Physicsbody.bodies[0].vel_vector.x, 2) + pow(Physicsbody.bodies[0].vel_vector.y, 2) + pow(Physicsbody.bodies[0].vel_vector.z, 2)
-    #b1vec += pow(Physicsbody.bodies[0].accel_vector.x, 2) + pow(Physicsbody.bodies[0].accel_vector.y, 2) + pow(Physicsbody.bodies[0].accel_vector.z, 2)
-    #b1vec = np.sqrt(b1vec)
+    b1vec += pow(Physicsbody.bodies[0].vel_vector.x, 2) + pow(Physicsbody.bodies[0].vel_vector.y, 2) + pow(Physicsbody.bodies[0].vel_vector.z, 2)
+    b1vec += pow(deltaxs[0], 2) + pow(deltays[0], 2) + pow(deltazs[0], 2) + pow(deltaxs[1], 2) + pow(deltays[1], 2) + pow(deltazs[1], 2)
+    b1vec += pow(Physicsbody.bodies[0].accel_vector.x, 2) + pow(Physicsbody.bodies[0].accel_vector.y, 2) + pow(Physicsbody.bodies[0].accel_vector.z, 2)
+    b1vec = np.sqrt(b1vec)
     
     #b2vec += pow(Physicsbody.bodies[1].pos_vector.x, 2) + pow(Physicsbody.bodies[1].pos_vector.y, 2) + pow(Physicsbody.bodies[1].pos_vector.z, 2)
-    #b2vec += pow(deltaxs[2], 2) + pow(deltays[2], 2) + pow(deltazs[2], 2) + pow(deltaxs[3], 2) + pow(deltays[3], 2) + pow(deltazs[3], 2) 
-    #b2vec += pow(Physicsbody.bodies[1].vel_vector.x, 2) + pow(Physicsbody.bodies[1].vel_vector.y, 2) + pow(Physicsbody.bodies[1].vel_vector.z, 2)
-    #b2vec += pow(Physicsbody.bodies[1].accel_vector.x, 2) + pow(Physicsbody.bodies[1].accel_vector.y, 2) + pow(Physicsbody.bodies[1].accel_vector.z, 2)
-    #b2vec = np.sqrt(b2vec)
+    b2vec += pow(Physicsbody.bodies[1].vel_vector.x, 2) + pow(Physicsbody.bodies[1].vel_vector.y, 2) + pow(Physicsbody.bodies[1].vel_vector.z, 2)
+    b2vec += pow(deltaxs[2], 2) + pow(deltays[2], 2) + pow(deltazs[2], 2) + pow(deltaxs[3], 2) + pow(deltays[3], 2) + pow(deltazs[3], 2) 
+    b2vec += pow(Physicsbody.bodies[1].accel_vector.x, 2) + pow(Physicsbody.bodies[1].accel_vector.y, 2) + pow(Physicsbody.bodies[1].accel_vector.z, 2)
+    b2vec = np.sqrt(b2vec)
     
-    #b3vec += pow(deltaxs[4], 2) + pow(deltays[4], 2) + pow(deltazs[4], 2) + pow(deltaxs[5], 2) + pow(deltays[5], 2) + pow(deltazs[5], 2) 
-    #b3vec += pow(Physicsbody.bodies[2].vel_vector.x, 2) + pow(Physicsbody.bodies[2].vel_vector.y, 2) + pow(Physicsbody.bodies[2].vel_vector.z, 2)
-    #b3vec += pow(Physicsbody.bodies[2].accel_vector.x, 2) + pow(Physicsbody.bodies[2].accel_vector.y, 2) + pow(Physicsbody.bodies[2].accel_vector.z, 2)
-    #b3vec = np.sqrt(b3vec)
+    #b3vec += pow(Physicsbody.bodies[2].pos_vector.x, 2) + pow(Physicsbody.bodies[2].pos_vector.y, 2) + pow(Physicsbody.bodies[2].pos_vector.z, 2)
+    b3vec += pow(deltaxs[4], 2) + pow(deltays[4], 2) + pow(deltazs[4], 2) + pow(deltaxs[5], 2) + pow(deltays[5], 2) + pow(deltazs[5], 2) 
+    b3vec += pow(Physicsbody.bodies[2].vel_vector.x, 2) + pow(Physicsbody.bodies[2].vel_vector.y, 2) + pow(Physicsbody.bodies[2].vel_vector.z, 2)
+    b3vec += pow(Physicsbody.bodies[2].accel_vector.x, 2) + pow(Physicsbody.bodies[2].accel_vector.y, 2) + pow(Physicsbody.bodies[2].accel_vector.z, 2)
+    b3vec = np.sqrt(b3vec)
     
     #track_x.append((deltaxs[0] + deltaxs[1] + deltaxs[2])/3)
     #track_y.append((deltays[0] + deltays[1] + deltays[2])/3)
     #track_z.append((deltazs[0] + deltazs[1] + deltazs[2])/3)
-    for i in deltaxs:
-        b1vec+=i
-    for i in deltays:
-        b2vec+=i
-    for i in deltazs:
-        b3vec+=i
-    b1vec/=9
-    b2vec/=9
-    b3vec/=9
     
     track_x.append(b1vec)
     track_y.append(b2vec)
@@ -146,11 +146,11 @@ def animate(i):
     global track_y
     global track_z
     
-    ax.clear()
+    #ax.clear()
     run_processes()
     
 
-    ax.plot(track_x, track_y, track_z, color = 'yellow')
+    
 
 
 main()

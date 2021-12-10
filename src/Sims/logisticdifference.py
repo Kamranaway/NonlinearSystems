@@ -9,13 +9,15 @@ style.use('dark_background')
 
 NUM_ITERATIONS = 30
 last_x = 0.1
-r = 3 #Driving force. Adjust to change behavior of system.
+r = 3.3 #Driving force. Adjust to change behavior of system.
 x = []
 
 
 
 fig = plt.figure()
 ax = plt.axes()
+ax.set_xlabel('Population')
+ax.set_ylabel('Year')
 
 def main():
     

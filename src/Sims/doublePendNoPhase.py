@@ -49,13 +49,34 @@ def animate(i):
     ax.clear()
     #ax.set_xlim(0, 40)
     #ax.set_ylim(-25, 25)
+    
+    ax.set_xlim(-50, 50)
+    ax.set_ylim(-50, 50)
 
+    
+    ly = length_1*np.cos(theta_ones[i])
+    lx = length_1*np.sin(theta_ones[i])
+    lxo = lx
+    lyo = ly
+    string = [[0], [0]]
+    string[0].append(lx)
+    string[1].append(-ly)
+    ax.plot(string[0], string[1], color='white')
+    ax.plot(lx, -ly, markerfacecolor='r', markeredgecolor='r', marker='.', markersize=30, alpha=1)
+    
+    ly = length_2*np.cos(theta_twos[i])
+    lx = length_2*np.sin(theta_twos[i])
+    string = [[lxo], [-lyo]]
+    string[0].append(lx + lxo)
+    string[1].append(-ly - lyo)
+    ax.plot(string[0], string[1], color='white')
+    ax.plot(lx + lxo, -ly - lyo, markerfacecolor='r', markeredgecolor='r', marker='.', markersize=30, alpha=1)
     
     
     
     current_t1.append(theta_twos[i])
     current_t2.append(theta_ones[i])
-    ax.plot(current_t1, current_t2, color='white')
+    #ax.plot(current_t1, current_t2, color='white')
     
         
 def gen_states():
@@ -78,6 +99,7 @@ def gen_states():
         
         theta_1_deg = np.rad2deg(theta_1)
         theta_2_deg = np.rad2deg(theta_2)
+        #if (not np.isnan(theta_1_deg)): print(theta_1_deg)
         
      
         

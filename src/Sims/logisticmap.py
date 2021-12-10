@@ -15,6 +15,7 @@ x_map = []
 
 fig = plt.figure()
 ax = plt.axes()
+ax.set_ylabel('Growth Rate')
 
 def main():
     

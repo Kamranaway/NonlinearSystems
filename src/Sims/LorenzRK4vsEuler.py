@@ -110,9 +110,9 @@ def gen_lorenz():
         yz3 = last_z + kz3 * 0.01
         
         #k4
-        kx4 = (sigma*(yy3-yx3))*(0.01)
-        ky4 = ((r*yx3)-yy3-(yx3*yz3))*(0.01)
-        kz4 = ((yx3*yy3)-(b*yz3))*(0.01)
+        kx4 = (sigma*(yy3-yx3))
+        ky4 = ((r*yx3)-yy3-(yx3*yz3))
+        kz4 = ((yx3*yy3)-(b*yz3))
         
         new_x = last_x + (((kx1 + 2*kx2 + 2*kx3 + kx4)*0.01/6))
         new_y = last_y + (((ky1 + 2*ky2 + 2*ky3 + ky4)*0.01/6))
